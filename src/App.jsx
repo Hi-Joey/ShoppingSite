@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import ProductsList from "./components/ProductsList.jsx";
 import ShoppingCart from "./components/ShoppingCart.jsx";
+import CreateProductForm from "./components/CreateProductForm.jsx";
 
 export default function App() {
   const [products, setProducts] = useState([
@@ -41,7 +42,7 @@ export default function App() {
     ]);
   };
 
-  const addToBuy = (product) => {
+  const onAddProductToBuy = (product) => {
     console.log(product);
     setProductsToBuy([...productsToBuy, product]);
   };
@@ -52,12 +53,14 @@ export default function App() {
         <div className="col-8">
           <h1>Basic Shopping Site</h1>
 
-          <ProductsList products={products} addToBuy={addToBuy} />
+          <ProductsList
+            products={products}
+            onAddProductToBuy={onAddProductToBuy}
+          />
 
           {/*Add a new form */}
-          <button className="btn btn-primary" onClick={onAddProduct}>
-            Add Product
-          </button>
+
+          <CreateProductForm onAddProduct={onAddProduct} />
         </div>
         {/* col-8 */}
 

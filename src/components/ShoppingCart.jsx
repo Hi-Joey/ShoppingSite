@@ -1,15 +1,21 @@
 import React from "react";
-import Product from "./Product";
+import PropTypes from "prop-types";
 
 export default function ShoppingCart({ productsToBuy }) {
+  const renderProductToBuy = (product, i) => (
+    <li key={i}>
+      {product.name} ${product.price}{" "}
+      <button className="btn btn-sm btn-outline-danger"> - </button>
+    </li>
+  );
   return (
-    <>
-      <h2>ShoppingCart Detail</h2>
-      <div className="shoppintcart row">
-        {productsToBuy.map((s, i) => (
-          <Product key={i} shoppingcart={s}></Product>
-        ))}
-      </div>
-    </>
+    <div>
+      <ul>{productsToBuy.map(renderProductToBuy)}</ul>
+      Total: ${productsToBuy.reduce((acc, product) => acc + product.price, 0)}
+    </div>
   );
 }
+
+ShoppingCart.propTypes = {
+  productsToBuy: PropTypes.array.isRequired,
+};
