@@ -1,6 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,9 +29,37 @@ function MyFirebase() {
 
   const me = {};
 
-  me.app = app;
+  me.getProducts = async () => {
+    console.log("getProducts");
+    const productsRef = collection(db, "Products");
+    // https://stackoverflow.com/questions/46590155/firestore-permission-denied-missing-or-insufficient-permissions
+    const querySnapshot = await getDocs(productsRef);
+
+    const products = querySnapshot.docs.map((doc) => {
+      return doc.data();
+    });
+
+    return products;
+
+    // querySnapshot.forEach((doc) => {
+    //   console.log(doc.id, " => ", doc.data());
+    // });
+  };
+
+  //select a range of products
+  me.getProductsRange = async (start, end) => {
+    console.log("getProductsRange");
+    const productsRef = collection(db, "Products");
+    const querySnapshot = await getDocs(productsRef);
+    const products = [];
+    querySnapshot.forEach((doc) => {
+      products.push(doc.data());
+    });
+
+    return [products.slice(start, end), products.length];
+  };
+
+  return me;
 }
 
-const MyFirebase = new MyFirebase();
-
-export default MyFirebase;
+export const myFirebase = new MyFirebase();
