@@ -11,7 +11,7 @@ export default function ShoppingCart({ productsToBuy, onRemoveProductToBuy }) {
   const renderProductToBuy = (product, i) => (
     <li key={i} className="list-group-item">
       <div className="row">
-        <div className="col-6">
+        <div className="col-10">
           {product.name} ${product.price}{" "}
         </div>
         <div className="col-2">
@@ -26,9 +26,12 @@ export default function ShoppingCart({ productsToBuy, onRemoveProductToBuy }) {
     </li>
   );
   return (
-    <div>
+    <div className="col-8 mt-3">
       <ul class="list-group">{productsToBuy.map(renderProductToBuy)}</ul>
-      Total: ${productsToBuy.reduce((acc, product) => acc + product.price, 0)}
+      <div className="mt-3 d-flex justify-content-end">
+        Total: $
+        {productsToBuy.reduce((acc, product) => acc + +product.price, 0)}
+      </div>
     </div>
   );
 }

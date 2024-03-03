@@ -8,7 +8,7 @@ export default function Product({ product, onAddProductToBuy }) {
   };
 
   return (
-    <div className="col-4">
+    <div className="col-4 mt-3">
       <div className="card ">
         <img src={product.image} alt={product.name} />
         {product.name} ${product.price}

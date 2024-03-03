@@ -20,7 +20,7 @@ function Pagination({ pageCount, currentPage, setProductPage }) {
   }
 
   return (
-    <div className="d-flex justify-content-center mt-3">
+    <div className="d-flex justify-content-center mt-4">
       {/* // allign the pagination to the center */}
       <nav aria-label="Page navigation">
         <ul className="pagination pagination-sm">{ListItems}</ul>

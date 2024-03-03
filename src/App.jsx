@@ -76,9 +76,8 @@ export default function App() {
   return (
     <div>
       <div className="row">
+        <h1 className="d-flex justify-content-center">Yang's Shopping Site</h1>
         <div className="col-8">
-          <h1>Basic Shopping Site</h1>
-
           <ProductsList
             products={products}
             onAddProductToBuy={onAddProductToBuy}
@@ -96,7 +95,7 @@ export default function App() {
         </div>
         {/* col-8 */}
 
-        <div className="col-4">
+        <div className="col-4 mt-3">
           <h2>Shopping Cart</h2>
           <ShoppingCart
             productsToBuy={productsToBuy}
