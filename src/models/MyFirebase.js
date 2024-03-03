@@ -7,6 +7,8 @@ import {
   query,
   orderBy,
   addDoc,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -33,13 +35,11 @@ function MyFirebase() {
   me.getProducts = async () => {
     // clear the products array
 
-    console.log("getProducts");
-    console.log("firebase_start:", products.length);
-
     const productsRef = collection(db, "Products");
     // https://stackoverflow.com/questions/46590155/firestore-permission-denied-missing-or-insufficient-permissions
 
-    const q = query(productsRef, orderBy("name", "asc"));
+    const q = query(productsRef, orderBy("createdDate", "desc"));
+    // const q = query(productsRef);
     const querySnapshot = await getDocs(q);
 
     products = [];
@@ -49,38 +49,26 @@ function MyFirebase() {
       products.push(product);
     });
 
-    console.log("firebase_length:", products.length);
+    // console.log("firebase_length:", products.length);
     return products;
   };
 
   //select a range of products
   me.getProductsRange = (start, end) => {
-    // console.log("getProductsRange");
-    // const productsRef = collection(db, "Products");
-    // get products order by created date
-    //const q = query(productsRef, orderBy("_createTime", "desc"));
-    // const q = query(productsRef);
-    // const querySnapshot = await getDocs(q);
-    // console.log("querySnapshot", querySnapshot);
-    // const products = [];
-
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data());
-    //   const product = doc.data();
-    //   product.id = doc.id;
-    //   products.push(product);
-    // });
-    console.log("start", start);
-    console.log("end", end);
-    console.log("products_slice", products.slice(start, end));
     return [products.slice(start, end), products.length];
   };
 
   me.addProduct = async (product) => {
-    console.log("addProduct", product);
+    // console.log("addProduct", product);
     const docRef = await addDoc(collection(db, "Products"), product);
-    console.log("Document written with ID: ", docRef.id);
+    // console.log("Document written with ID: ", docRef.id);
     return docRef.id;
+  };
+
+  me.deleteProduct = async (id) => {
+    // console.log("deleteProduct", id);
+    const request = await deleteDoc(doc(db, "Products", id));
+    return request;
   };
 
   return me;

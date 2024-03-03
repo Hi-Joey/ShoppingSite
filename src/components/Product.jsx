@@ -1,10 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function Product({ product, onAddProductToBuy }) {
-  const onAdd = () => {
-    console.log("Add to cart:", product);
+export default function Product({
+  product,
+  onAddProductToBuy,
+  onDeleteProduct,
+}) {
+  const onAddToCart = () => {
     onAddProductToBuy(product);
+  };
+
+  const onDelete = () => {
+    onDeleteProduct(product.id);
   };
 
   return (
@@ -12,8 +19,17 @@ export default function Product({ product, onAddProductToBuy }) {
       <div className="card ">
         <img src={product.image} alt={product.name} />
         {product.name} ${product.price}
-        <button className="btn btn-outline-primary btn-sm" onClick={onAdd}>
+        <button
+          className="btn btn-outline-primary btn-sm"
+          onClick={onAddToCart}
+        >
           Add to Cart
+        </button>
+        <button
+          className="btn btn-outline-danger btn-sm mt-2"
+          onClick={onDelete}
+        >
+          Delete Product
         </button>
       </div>
     </div>

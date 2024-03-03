@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 
 import Product from "./Product";
 
-export default function ProductsList({ products, onAddProductToBuy }) {
+export default function ProductsList({
+  products,
+  onAddProductToBuy,
+  onDeleteProduct,
+}) {
   return (
     <>
       <h2 className="mt-3">Products</h2>
@@ -12,6 +16,7 @@ export default function ProductsList({ products, onAddProductToBuy }) {
             key={i}
             product={p}
             onAddProductToBuy={onAddProductToBuy}
+            onDeleteProduct={onDeleteProduct}
           ></Product>
         ))}
       </div>

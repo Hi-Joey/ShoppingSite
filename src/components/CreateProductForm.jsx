@@ -7,7 +7,6 @@ export default function CreateProductForm({ onAddProduct }) {
   const nameRef = useRef();
   const priceRef = useRef();
   //   const imageRef = useRef();
-
   const onAddProductHelper = (e) => {
     e.preventDefault();
 
@@ -15,7 +14,9 @@ export default function CreateProductForm({ onAddProduct }) {
       name: nameRef.current.value,
       price: +priceRef.current.value,
       //   image: imageRef.current.value,
-      image: "https://picsum.photos/150",
+      image:
+        "https://picsum.photos/200?random=" + Math.floor(Math.random() * 100),
+      createdDate: new Date(),
     });
   };
 
@@ -39,18 +40,6 @@ export default function CreateProductForm({ onAddProduct }) {
             ref={priceRef}
           />
         </div>
-
-        {/* <div className="mb-3">
-          <label htmlFor="image" className="form-label">
-            Product Image
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="image"
-            ref={imageRef}
-          />
-        </div> */}
       </form>
       {/* // allign the button to the center */}
       <div className="d-flex justify-content-end">

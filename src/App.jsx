@@ -1,5 +1,3 @@
-import "./App.css";
-
 import React, { useEffect, useState } from "react";
 
 import ProductsList from "./components/ProductsList.jsx";
@@ -17,7 +15,7 @@ export default function App() {
       id: 1,
       name: "Product 1",
       price: 100,
-      image: "https://via.placeholder.com/150",
+      image: "https://via.placeholder.com/200",
     },
   ]);
 
@@ -27,7 +25,6 @@ export default function App() {
   const [productsToBuy, setProductsToBuy] = useState([]);
 
   const onAddProduct = async (product) => {
-    console.log("On add product", product);
     await myFirebase.addProduct(product);
 
     // refresh the products
@@ -35,8 +32,15 @@ export default function App() {
     setProductPage(currentPage);
   };
 
+  const onDeleteProduct = async (id) => {
+    await myFirebase.deleteProduct(id);
+
+    // refresh the products
+    await myFirebase.getProducts();
+    setProductPage(currentPage);
+  };
+
   const onAddProductToBuy = (product) => {
-    console.log(product);
     setProductsToBuy([...productsToBuy, product]);
   };
 
@@ -51,7 +55,6 @@ export default function App() {
       await myFirebase.getProducts();
       const [products, length] = myFirebase.getProductsRange(0, pageSize);
 
-      console.log("App products length", length);
       setProducts(products);
       setProductsLength(length);
     };
@@ -66,8 +69,8 @@ export default function App() {
 
     const [products, length] = myFirebase.getProductsRange(start, end);
 
-    console.log("page length", length);
-    console.log("page", page);
+    // console.log("page length", length);
+    // console.log("page", page);
     setProducts(products);
     setProductsLength(length);
     setCurrentPage(page);
@@ -76,13 +79,18 @@ export default function App() {
   return (
     <div>
       <div className="row">
-        <h1 className="d-flex justify-content-center">Yang's Shopping Site</h1>
+        <h1
+          className="display-3 d-flex justify-content-center"
+          style={{ color: "#9195F6" }}
+        >
+          Yang's Shopping Site
+        </h1>
         <div className="col-8">
           <ProductsList
             products={products}
             onAddProductToBuy={onAddProductToBuy}
+            onDeleteProduct={onDeleteProduct}
           />
-
           <Pagination
             pageCount={Math.ceil(productsLength / pageSize)}
             currentPage={currentPage}
@@ -90,7 +98,7 @@ export default function App() {
           />
 
           {/*Add a new form */}
-
+          <h2 className="mb-3">Add Product</h2>
           <CreateProductForm onAddProduct={onAddProduct} />
         </div>
         {/* col-8 */}
