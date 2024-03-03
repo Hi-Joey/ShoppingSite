@@ -10,6 +10,8 @@ import CreateProductForm from "./components/CreateProductForm.jsx";
 import { myFirebase } from "./models/MyFirebase";
 
 export default function App() {
+  const pageSize = 6;
+
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -17,32 +19,20 @@ export default function App() {
       price: 100,
       image: "https://via.placeholder.com/150",
     },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 200,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 300,
-      image: "https://via.placeholder.com/150",
-    },
   ]);
+
+  const [productsLength, setProductsLength] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [productsToBuy, setProductsToBuy] = useState([]);
 
-  const onAddProduct = () => {
-    setProducts([
-      ...products,
-      {
-        id: products.at(-1).id + 1,
-        name: `Product ${products.length + 1}`,
-        price: 400,
-        image: "https://via.placeholder.com/150",
-      },
-    ]);
+  const onAddProduct = async (product) => {
+    console.log("On add product", product);
+    await myFirebase.addProduct(product);
+
+    // refresh the products
+    await myFirebase.getProducts();
+    setProductPage(currentPage);
   };
 
   const onAddProductToBuy = (product) => {
@@ -50,16 +40,38 @@ export default function App() {
     setProductsToBuy([...productsToBuy, product]);
   };
 
+  // remove product from the shopping cart
+  const onRemoveProductToBuy = (index) => {
+    setProductsToBuy(productsToBuy.filter((p, i) => index !== i));
+  };
+
   // load products from firebase when the component is loaded
   useEffect(() => {
-    const getProducts = async () => {
-      const products = await myFirebase.getProducts();
-      console.log(products);
+    const getProductsRange = async () => {
+      await myFirebase.getProducts();
+      const [products, length] = myFirebase.getProductsRange(0, pageSize);
+
+      console.log("App products length", length);
       setProducts(products);
+      setProductsLength(length);
     };
 
-    getProducts();
+    // getProducts();
+    getProductsRange();
   }, []);
+
+  const setProductPage = async (page) => {
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+
+    const [products, length] = myFirebase.getProductsRange(start, end);
+
+    console.log("page length", length);
+    console.log("page", page);
+    setProducts(products);
+    setProductsLength(length);
+    setCurrentPage(page);
+  };
 
   return (
     <div>
@@ -72,6 +84,12 @@ export default function App() {
             onAddProductToBuy={onAddProductToBuy}
           />
 
+          <Pagination
+            pageCount={Math.ceil(productsLength / pageSize)}
+            currentPage={currentPage}
+            setProductPage={setProductPage}
+          />
+
           {/*Add a new form */}
 
           <CreateProductForm onAddProduct={onAddProduct} />
@@ -80,7 +98,10 @@ export default function App() {
 
         <div className="col-4">
           <h2>Shopping Cart</h2>
-          <ShoppingCart productsToBuy={productsToBuy} />
+          <ShoppingCart
+            productsToBuy={productsToBuy}
+            onRemoveProductToBuy={onRemoveProductToBuy}
+          />
         </div>
 
         {/* <button
@@ -92,7 +113,11 @@ export default function App() {
           Get Documents
         </button> */}
 
-        <Pagination />
+        {/* <Pagination
+          pageCount={Math.ceil(productsLength / pageSize)}
+          currentPage={currentPage}
+          setProductPage={setProductPage}
+        /> */}
       </div>
     </div>
   );

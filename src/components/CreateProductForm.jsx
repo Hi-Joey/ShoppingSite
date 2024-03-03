@@ -15,7 +15,7 @@ export default function CreateProductForm({ onAddProduct }) {
       name: nameRef.current.value,
       price: +priceRef.current.value,
       //   image: imageRef.current.value,
-      image: "https://via.placeholder.com/150",
+      image: "https://picsum.photos/150",
     });
   };
 
@@ -52,10 +52,15 @@ export default function CreateProductForm({ onAddProduct }) {
           />
         </div> */}
       </form>
-
-      <button className="btn btn-primary" onClick={onAddProductHelper}>
+      {/* // allign the button to the center */}
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-primary mb-3" onClick={onAddProductHelper}>
+          Add Product
+        </button>
+      </div>
+      {/* <button className="btn btn-primary mb-3" onClick={onAddProductHelper}>
         Add Product
-      </button>
+      </button> */}
     </div>
   );
 }

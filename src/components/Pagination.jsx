@@ -1,36 +1,29 @@
 import React from "react";
 
-function Pagination({ productsLength }) {
-  const pageSize = 10;
-  const pageCount = Math.ceil(products.length / pageSize);
+function Pagination({ pageCount, currentPage, setProductPage }) {
+  const setPage = (page) => {
+    setProductPage(page);
+  };
 
-  const start = (page - 1) * pageSize;
-  const end = start + pageSize;
+  const ListItems = [];
+  for (let i = 1; i <= pageCount; i++) {
+    ListItems.push(
+      <li
+        className={currentPage === i ? "page-item active" : "page-item"}
+        key={i}
+      >
+        <a className="page-link" onClick={() => setPage(i)}>
+          {i}
+        </a>
+      </li>
+    );
+  }
 
   return (
-    <div>
-      <nav aria-label="Page navigation example">
-        <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-            </a>
-          </li>
-
-          {pageCount.map((p, i) => (
-            <li className="page-item" key={i}>
-              <a className="page-link" href={i}>
-                {i}
-              </a>
-            </li>
-          ))}
-
-          <li className="page-item">
-            <a className="page-link" href="" aria-label="Next">
-              <span aria-hidden="true">»</span>
-            </a>
-          </li>
-        </ul>
+    <div className="d-flex justify-content-center mt-3">
+      {/* // allign the pagination to the center */}
+      <nav aria-label="Page navigation">
+        <ul className="pagination pagination-sm">{ListItems}</ul>
       </nav>
     </div>
   );
