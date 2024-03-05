@@ -24,6 +24,7 @@ export default function App() {
 
   const [productsToBuy, setProductsToBuy] = useState([]);
 
+  // add a new product
   const onAddProduct = async (product) => {
     await myFirebase.addProduct(product);
 
@@ -32,6 +33,7 @@ export default function App() {
     setProductPage(currentPage);
   };
 
+  // delete a product
   const onDeleteProduct = async (id) => {
     await myFirebase.deleteProduct(id);
 
@@ -40,6 +42,16 @@ export default function App() {
     setProductPage(currentPage);
   };
 
+  // update a product
+  const onUpdateProduct = async (product) => {
+    await myFirebase.updateProduct(product);
+
+    // refresh the products
+    await myFirebase.getProducts();
+    setProductPage(currentPage);
+  };
+
+  // add product to the shopping cart
   const onAddProductToBuy = (product) => {
     setProductsToBuy([...productsToBuy, product]);
   };
@@ -90,6 +102,7 @@ export default function App() {
             products={products}
             onAddProductToBuy={onAddProductToBuy}
             onDeleteProduct={onDeleteProduct}
+            onUpdateProduct={onUpdateProduct}
           />
           <Pagination
             pageCount={Math.ceil(productsLength / pageSize)}

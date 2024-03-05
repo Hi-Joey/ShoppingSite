@@ -8,6 +8,7 @@ import {
   orderBy,
   addDoc,
   deleteDoc,
+  setDoc,
   doc,
 } from "firebase/firestore";
 
@@ -68,6 +69,16 @@ function MyFirebase() {
   me.deleteProduct = async (id) => {
     // console.log("deleteProduct", id);
     const request = await deleteDoc(doc(db, "Products", id));
+    return request;
+  };
+
+  //update a product
+  me.updateProduct = async (product) => {
+    // console.log("updateProduct", product.id, product);
+
+    // const request = await updateDoc(doc(db, "Products", id), product);
+    const request = await setDoc(doc(db, "Products", product.id), product);
+
     return request;
   };
 

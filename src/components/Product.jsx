@@ -1,17 +1,24 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import UpdateModal from "./UpdateModal";
 
 export default function Product({
   product,
   onAddProductToBuy,
   onDeleteProduct,
+  onUpdateProduct,
 }) {
+  const [showEditModal, setShowEditModal] = useState(false);
   const onAddToCart = () => {
     onAddProductToBuy(product);
   };
 
   const onDelete = () => {
     onDeleteProduct(product.id);
+  };
+
+  const toggleUpdateProductModal = () => {
+    setShowEditModal(!showEditModal);
   };
 
   return (
@@ -31,6 +38,20 @@ export default function Product({
         >
           Delete Product
         </button>
+        {/* edit product */}
+        <button
+          className="btn btn-outline-warning btn-sm mt-2"
+          onClick={toggleUpdateProductModal}
+        >
+          Edit Product
+        </button>
+        {showEditModal && (
+          <UpdateModal
+            product={product}
+            toggleUpdateProductModal={toggleUpdateProductModal}
+            onUpdateProduct={onUpdateProduct}
+          />
+        )}
       </div>
     </div>
   );

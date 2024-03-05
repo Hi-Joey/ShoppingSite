@@ -6,6 +6,7 @@ export default function ProductsList({
   products,
   onAddProductToBuy,
   onDeleteProduct,
+  onUpdateProduct,
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function ProductsList({
             product={p}
             onAddProductToBuy={onAddProductToBuy}
             onDeleteProduct={onDeleteProduct}
+            onUpdateProduct={onUpdateProduct}
           ></Product>
         ))}
       </div>
