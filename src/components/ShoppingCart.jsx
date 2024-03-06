@@ -27,7 +27,10 @@ export default function ShoppingCart({ productsToBuy, onRemoveProductToBuy }) {
   );
 
   const totalPrice = () => {
-    const total = productsToBuy.reduce((acc, p) => acc + p.price, 0);
+    console.log("productPrice", productsToBuy[0].price);
+    console.log("typeof", typeof productsToBuy[0].price);
+
+    const total = productsToBuy.reduce((acc, p) => acc + +p.price, 0);
     return "Total: $" + total;
   };
 
