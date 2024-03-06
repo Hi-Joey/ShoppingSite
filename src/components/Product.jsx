@@ -60,4 +60,6 @@ export default function Product({
 Product.propTypes = {
   product: PropTypes.object.isRequired,
   onAddProductToBuy: PropTypes.func.isRequired,
+  onDeleteProduct: PropTypes.func.isRequired,
+  onUpdateProduct: PropTypes.func.isRequired,
 };

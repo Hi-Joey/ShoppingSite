@@ -10,14 +10,7 @@ import { myFirebase } from "./models/MyFirebase";
 export default function App() {
   const pageSize = 6;
 
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      price: 100,
-      image: "https://via.placeholder.com/200",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const [productsLength, setProductsLength] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -123,21 +116,6 @@ export default function App() {
             onRemoveProductToBuy={onRemoveProductToBuy}
           />
         </div>
-
-        {/* <button
-          onClick={async () => {
-            const products = await myFirebase.getProducts();
-            console.log(products);
-          }}
-        >
-          Get Documents
-        </button> */}
-
-        {/* <Pagination
-          pageCount={Math.ceil(productsLength / pageSize)}
-          currentPage={currentPage}
-          setProductPage={setProductPage}
-        /> */}
       </div>
     </div>
   );
