@@ -2,19 +2,13 @@
 
 Implements of a basic Shopping site and CRUD of the products use firebase.
 
-
-
 ## Deploy
 
 Web URL: https://shoppingcart-79404.web.app
 
-
-
 ## Video
 
 YouTube Video: https://youtu.be/JhGDGVn4wTo
-
-
 
 ## Run
 
@@ -22,8 +16,6 @@ YouTube Video: https://youtu.be/JhGDGVn4wTo
 2. cd ShoppingSite
 3. npm install
 4. npm run dev
-
-
 
 ## Database
 
@@ -36,8 +28,6 @@ Every document have 4 attributes.
 - name
 - price
 
-
-
 ## Functionality
 
 - Adding and removing products from the shopping cart.
@@ -47,17 +37,13 @@ Every document have 4 attributes.
 - Implementing pagination to divide the products into multiple pages.
 - Displaying product images, names, and prices on the website.
 
-
-
 ## Methods
 
 All the Styling are implemented by Bootstrap.
 
-
-
 ### Firebase
 
-The MyFirebase.jsx file implements CRUD (Create, Read, Update, Delete) operations for managing data in a Firebase Firestore database. 
+The MyFirebase.jsx file implements CRUD (Create, Read, Update, Delete) operations for managing data in a Firebase Firestore database.
 
 1. Initialization: The file initializes the Firebase app using the provided configuration and obtains a reference to the Firestore database.
 2. Read (Retrieve) Operations:
@@ -69,12 +55,9 @@ The MyFirebase.jsx file implements CRUD (Create, Read, Update, Delete) operation
 5. Update Operation:
    - The `updateProduct` function updates an existing product in the Firestore database.
 
-The file encapsulates these CRUD functionalities within the `MyFirebase` module, and the modules using Functions style by **John**. 
-
-
+The file encapsulates these CRUD functionalities within the `MyFirebase` module, and the modules using Functions style by **John**.
 
 ### Product
-
 
 The Product component represents a single product item. It receives props such as product (the product object to display), onAddProductToBuy (a function to add the product to the cart), onDeleteProduct (a function to delete the product), and onUpdateProduct (a function to update the product details).
 
@@ -90,19 +73,15 @@ If the showEditModal state is true, the UpdateModal component is rendered, allow
 
 Finally, the Product component defines propTypes to specify the expected types for the props passed to it, ensuring proper data validation and usage. In this case, the product prop is required and must be an object, and the parameters prop is required and must be a function.
 
-
-
 ### Pagination
 
 The Pagination.jsx file implements a pagination component for displaying page numbers and allowing users to navigate through different pages of content.
 
 It receives props such as pageCount (total number of pages), currentPage (currently active page), and setProductPage (a function to set the active page).
 
-Inside the component, it generates a list of page numbers based on the pageCount prop. Each page number is wrapped in a list item (<li>) with a link (<a>) that triggers the setPage function when clicked, updating the active page.
+Inside the component, it generates a list of page numbers based on the pageCount prop. Each page number is wrapped in a list item with a link that triggers the setPage function when clicked, updating the active page.
 
-The pagination component is styled using Bootstrap's pagination classes and is aligned to the center of the page using flexbox. 
-
-
+The pagination component is styled using Bootstrap's pagination classes and is aligned to the center of the page using flexbox.
 
 ### UpdateModal
 
